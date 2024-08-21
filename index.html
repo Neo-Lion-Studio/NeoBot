@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>CozeWebSDK Chat Example</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #chat-container { max-width: 600px; margin: auto; }
+        #chat { height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
+        #user-input { width: 100%; }
+        #send-button { width: 100%; margin-top: 10px; }
+        #loading { display: none; }
+        
+        /* 自定义悬浮入口的位置 */
+        #position_demo {
+            position: fixed; /* 使用 fixed 位置固定悬浮窗口 */
+            right: 10px;
+            bottom: 20px;
+            z-index: 1000; /* 确保悬浮窗口在页面之上 */
+        }
+    </style>
+    <!-- CDN 引入 -->
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/cn/index.js"></script>
+</head>
+<body>
+    <h1>老中医AI同你聊养生</h1>
+    <div id="position_demo"></div>
+
+    <script>
+        // JavaScript 代码
+        const bot_id = '7402169269993406504';
+        const title = '老中医同你聊养生';
+        const icon = 'https://s.coze.cn/t/irGjSo3y/';
+        const lang = 'zh-CN';
+        const layout = 'pc';
+        const width = 800;
+
+        // 使用 CozeWebSDK WebChatClient
+        new CozeWebSDK.WebChatClient({
+            config: {
+                bot_id,
+            },
+            componentProps: {
+                title,
+                icon,
+                width,
+            },
+            el: document.getElementById('position_demo'),
+        });
+    </script>
+</body>
+</html>
