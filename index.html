@@ -3,14 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>老中医AI同你聊养生</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        #chat-container { max-width: 600px; margin: auto; }
-        #chat { height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
-        #user-input { width: 100%; }
-        #send-button { width: 100%; margin-top: 10px; }
-        #loading { display: none; }
-        
+ <style>
+
         /* 自定义悬浮入口的位置 */
         #position_demo {
             position: fixed; /* 使用 fixed 位置固定悬浮窗口 */
@@ -31,6 +25,7 @@
         const title = '老中医同你聊养生';
         const icon = 'https://s.coze.cn/t/irGjSo3y/';
         const lang = 'zh-CN';
+		const layout = 'mobile';
 
         // 使用 CozeWebSDK WebChatClient
         new CozeWebSDK.WebChatClient({
