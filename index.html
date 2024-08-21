@@ -31,8 +31,6 @@
         const title = '老中医同你聊养生';
         const icon = 'https://s.coze.cn/t/irGjSo3y/';
         const lang = 'zh-CN';
-        const layout = 'mobile';
-        const width = 800;
 
         // 使用 CozeWebSDK WebChatClient
         new CozeWebSDK.WebChatClient({
@@ -42,7 +40,6 @@
             componentProps: {
                 title,
                 icon,
-                width,
             },
             el: document.getElementById('position_demo'),
         });
