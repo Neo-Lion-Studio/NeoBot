@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>CozeWebSDK Chat Example</title>
+    <title>老中医AI同你聊养生</title>
     <style>
         body { font-family: Arial, sans-serif; }
         #chat-container { max-width: 600px; margin: auto; }
@@ -14,25 +14,24 @@
         /* 自定义悬浮入口的位置 */
         #position_demo {
             position: fixed; /* 使用 fixed 位置固定悬浮窗口 */
-            right: 10px;
-            bottom: 20px;
+            left: 125px;
+            top: 75px;
             z-index: 1000; /* 确保悬浮窗口在页面之上 */
         }
     </style>
-    <!-- CDN 引入 -->
-    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/cn/index.js"></script>
+
 </head>
 <body>
     <h1>老中医AI同你聊养生</h1>
     <div id="position_demo"></div>
-
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/cn/index.js"></script>
     <script>
         // JavaScript 代码
         const bot_id = '7402169269993406504';
         const title = '老中医同你聊养生';
         const icon = 'https://s.coze.cn/t/irGjSo3y/';
         const lang = 'zh-CN';
-        const layout = 'pc';
+        const layout = 'mobile';
         const width = 800;
 
         // 使用 CozeWebSDK WebChatClient
