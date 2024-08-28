@@ -4,7 +4,7 @@ import { Pipe } from './pipe.js';
 export class Game {
     constructor(gameElement, difficultyLevel) {
         this.gameElement = gameElement;
-        this.gameSize = Math.min(window.innerWidth - 40, 600);
+        this.gameSize = Math.min(window.innerWidth, window.innerHeight) - 40;
         this.ball = null;
         this.pipes = [];
         this.score = 0;
