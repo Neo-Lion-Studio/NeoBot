@@ -22,6 +22,7 @@ body {
 #game {
     width: 100%;
     height: 100%;
+    background: url(images/background.png);
     position: relative;
 }
 
@@ -63,11 +64,17 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 #menuScreen, #gameOverScreen {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
+}
+
+#gameOverScreen button {
+    margin: 10px auto; 
+    display: block; 
 }
 
 button {
@@ -90,4 +97,9 @@ button {
 #highScore, #finalScore {
     font-size: 1.5em;
     margin-top: 20px;
+}
+
+.difficultyBtn.selected {
+    background-color: #4CAF50;
+    color: white;
 }
