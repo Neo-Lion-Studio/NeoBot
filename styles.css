@@ -56,3 +56,39 @@ body {
     font-size: 2em;
     color: #FFF;
 }
+
+.screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#menuScreen, #gameOverScreen {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#difficultySelector {
+    margin-top: 20px;
+}
+
+.difficultyBtn {
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
+#highScore, #finalScore {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
