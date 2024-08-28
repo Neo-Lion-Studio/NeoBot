@@ -1,4 +1,4 @@
-class FlappyBall {
+export default class FlappyBall {
     constructor(gameElement, difficultyLevel) {
         this.gameElement = gameElement;
         this.gameContainer = gameElement.querySelector('#gameContainer');
@@ -182,5 +182,3 @@ class Pipe {
         return clsUp || clsDown;
     }
 }
-
-export { FlappyBall };
