@@ -1,44 +1,160 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>老中医AI同你聊养生</title>
- <style>
-
-        /* 自定义悬浮入口的位置 */
-        #position_demo {
-            position: fixed; /* 使用 fixed 位置固定悬浮窗口 */
-            left: 125px;
-            top: 75px;
-            z-index: 1000; /* 确保悬浮窗口在页面之上 */
+    <title>Flappy Ball</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
         }
-    </style>
+ 
+        #gameContainer {
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px; 
+        }
 
+        #game {
+            width: 100%;
+            height: 100%;
+            max-width: 600px;
+            max-height: 600px;
+            border: 1px solid #000;
+            background: url(images/background.png);
+            position: relative;
+        }
+
+        #game .pipeD {
+            background: url(images/pipe1.png) top center;
+            position: absolute;
+        }
+
+        #game .pipeU {
+            background: url(images/pipe2.png) bottom center;
+            position: absolute;
+        }
+
+        .ball {
+            width: 45px;
+            height: 45px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+
+        .ball1 {
+            background: url(images/ball1.png) no-repeat;
+        }
+
+        .ball2 {
+            background: url(images/ball2.png) no-repeat;
+        }
+
+        .ball3 {
+            background: url(images/ball3.png) no-repeat;
+        }
+
+        .ball4 {
+            background: url(images/ball4.png) no-repeat;
+        }
+		
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 2em;
+            color: #FFF;
+        }
+		
+        #menu {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+        }
+
+        select {
+            margin: 10px;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+
+        #scores {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #scores h2 {
+            margin-bottom: 10px;
+        }
+
+        #scores ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        #scores li {
+            margin-bottom: 5px;
+        }		
+    </style>
 </head>
 <body>
-    <h1>老中医AI同你聊养生</h1>
-    <div id="position_demo"></div>
-    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/cn/index.js"></script>
-    <script>
-        // JavaScript 代码
-        const bot_id = '7402169269993406504';
-        const title = '老中医同你聊养生';
-        const icon = 'https://s.coze.cn/t/irGjSo3y/';
-        const lang = 'zh-CN';
-	const layout = 'mobile';
+    <div id="menu">
+        <button onclick="startGame()">Start Game</button>
+        <select id="difficulty" onchange="setDifficulty()">
+            <option value="1">very Easy</option>
+            <option value="2">Easy</option>
+            <option value="3" selected>Normal</option>
+            <option value="4">Hard</option>
+            <option value="5">Very Hard</option>
+        </select>
+        <button onclick="showScores()">View Scores</button>
+        <div id="scores">
+            <h2>High Scores</h2>
+            <ul id="highScoresList">
+                <li>Player 1: 123</li>
+                <li>Player 2: 98</li>
+                <li>Player 3: 75</li>
+            </ul>
+        </div>
+    </div>
+    <div id="gameContainer">
+        <div id="game">
+            <div id="ball" class="ball ball1"></div>
+            <div id="score">0</div>
+        </div>
+    </div>
 
-        // 使用 CozeWebSDK WebChatClient
-        new CozeWebSDK.WebChatClient({
-            config: {
-                bot_id,
-            },
-            componentProps: {
-                title,
-                icon,
-		layout,
-            },
-            el: document.getElementById('position_demo'),
-        });
+    <script type="module" src="flappyBallGame.js"></script>
+    <script>
+        function startGame() {
+            const gameElement = document.getElementById('game');
+            const flappyBird = new FlappyBall(gameElement, difficultyLevel);
+        }
+
+        function setDifficulty() {
+            difficultyLevel = parseInt(document.getElementById('difficulty').value);
+        }
+
+        function showScores() {
+            const scoresDiv = document.getElementById('scores');
+            scoresDiv.style.display = scoresDiv.style.display === 'none' ? 'block' : 'none';
+        }
     </script>
 </body>
 </html>
