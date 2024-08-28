@@ -6,35 +6,26 @@ export class Menu {
         this.menuScreen = document.getElementById('menuScreen');
         this.gameScreen = document.getElementById('game');
         this.gameOverScreen = document.getElementById('gameOverScreen');
-        this.difficultyLevel = 3;
-        this.highScore = localStorage.getItem('highScore') || 0;
+        this.difficultySelector = document.getElementById('difficultySelector');
+        this.highScoreElement = document.getElementById('highScore');
+        this.highScoreElement2 = document.getElementById('gameOverHighScore');       
+        this.finalScoreElement = document.getElementById('finalScore');
+        this.currentDifficulty = 1;
+        this.highScores = JSON.parse(localStorage.getItem('highScores')) || {};
     }
 
     init() {
         this.bindEvents();
-        this.showHighScore();
+        this.showMenu();
     }
-    showHighScores() {
-        const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-        const highScoreElement = document.getElementById('highScore');
-        highScoreElement.innerHTML = '<h3>最高积分</h3>' + 
-            highScores.map((score, index) => `<p>${index + 1}. ${score}</p>`).join('');
-        highScoreElement.style.display = 'block';
-    }
+
     bindEvents() {
         document.getElementById('startGame').addEventListener('click', () => this.startGame());
         document.getElementById('chooseDifficulty').addEventListener('click', () => this.toggleDifficultySelector());
-        document.getElementById('showHighScoreEnd').addEventListener('click', () => {
-            this.showHighScores();
-        });
-        document.getElementById('backToMenu').addEventListener('click', () => {
-            this.resetGame();
-            this.showMenu();
-        });
-        document.getElementById('showHighScore').addEventListener('click', () => {
-            this.showHighScores();
-        });
-
+        document.getElementById('showHighScore').addEventListener('click', () => this.showHighScore());
+        document.getElementById('showHighScoreEnd').addEventListener('click', () => this.showHighScore());
+        document.getElementById('backToMenu').addEventListener('click', () => this.showMenu());
+        
         const difficultyButtons = document.querySelectorAll('.difficultyBtn');
         difficultyButtons.forEach(button => {
             button.addEventListener('click', (e) => this.setDifficulty(e.target.dataset.level));
@@ -42,69 +33,73 @@ export class Menu {
     }
 
     startGame() {
+        console.log("Starting game...");
         this.menuScreen.style.display = 'none';
         this.gameScreen.style.display = 'block';
         this.gameOverScreen.style.display = 'none';
-
-        const game = new Game(this.gameScreen, this.difficultyLevel);
-        game.onGameOver = (score) => this.showGameOver(score);
+    
+        const game = new Game(this.gameScreen, this.currentDifficulty);
+        console.log("Game started");
+        game.onGameOver = (score) => {
+            console.log("Game over, score:", score);
+            this.gameOver(score);
+        };
     }
 
+    gameOver(score) {
+        this.updateHighScore(score);
+        this.finalScoreElement.textContent = `Your score: ${score}`;
+        this.gameScreen.style.display = 'none';
+        this.gameOverScreen.style.display = 'flex';
+    }
     showMenu() {
-        this.menuScreen.style.display = 'block';
+        this.menuScreen.style.display = 'flex';
         this.gameScreen.style.display = 'none';
         this.gameOverScreen.style.display = 'none';
-    }
-
-    showGameOver(score) {
-        this.gameScreen.style.display = 'none';
-        this.gameOverScreen.style.display = 'block';
-        document.getElementById('finalScore').textContent = `你的得分: ${score}`;
-
-        if (score > this.highScore) {
-            this.highScore = score;
-            localStorage.setItem('highScore', this.highScore);
-        }
+        this.difficultySelector.style.display = 'none';
+        this.highScoreElement.style.display = 'none';
+        this.highScoreElement2.style.display = 'none';        
     }
 
     toggleDifficultySelector() {
-        const selector = document.getElementById('difficultySelector');
-        selector.style.display = selector.style.display === 'none' ? 'block' : 'none';
+        this.difficultySelector.style.display = this.difficultySelector.style.display === 'none' ? 'block' : 'none';
     }
 
     setDifficulty(level) {
-        this.difficultyLevel = parseInt(level);
-        this.toggleDifficultySelector();
+        this.currentDifficulty = parseInt(level);
+        document.querySelectorAll('.difficultyBtn').forEach(btn => btn.classList.remove('selected'));
+        document.querySelector(`.difficultyBtn[data-level="${level}"]`).classList.add('selected');
     }
 
-    resetGame() {
-        this.gameContainer.innerHTML = `
-            <div id="menuScreen" class="screen">
-                <h1>Flappy Ball</h1>
-                <button id="startGame">开始游戏</button>
-                <button id="chooseDifficulty">选择难度</button>
-                <button id="showHighScore">积分记录</button>
-                <div id="difficultySelector" style="display: none;">
-                    <button class="difficultyBtn" data-level="1">简单</button>
-                    <button class="difficultyBtn" data-level="2">普通</button>
-                    <button class="difficultyBtn" data-level="3">中等</button>
-                    <button class="difficultyBtn" data-level="4">困难</button>
-                    <button class="difficultyBtn" data-level="5">极难</button>
-                </div>
-                <div id="highScore"></div>
-            </div>
-            <div id="game" class="screen" style="display: none;">
-                <div id="ball" class="ball ball1"></div>
-                <div id="score">0</div>
-            </div>
-            <div id="gameOverScreen" class="screen" style="display: none;">
-                <h2>游戏结束</h2>
-                <p id="finalScore"></p>
-                <button id="showHighScoreEnd">积分记录</button>
-                <button id="backToMenu">回到菜单</button>
-            </div>
-        `;
-        this.init();
+    updateHighScore(score) {
+        if (!this.highScores[this.currentDifficulty] || score > this.highScores[this.currentDifficulty]) {
+            this.highScores[this.currentDifficulty] = score;
+            localStorage.setItem('highScores', JSON.stringify(this.highScores));
+        }
     }
+
+    showHighScore() {
+        let highScoreText = 'High Scores:\n';
+        for (let difficulty in this.highScores) {
+            highScoreText += `Difficulty ${difficulty}: ${this.highScores[difficulty]}\n`;
+        }
+
+        this.highScoreElement.textContent = highScoreText;
+        this.highScoreElement2.textContent = highScoreText;        
+        this.highScoreElement2.style.display = 'block';        
+        this.highScoreElement.style.display = 'block';
+    }
+        resetGame(){
+            this.difficultyLevel = 3;
+            this.showMenu();
+            this.gameScreen.innerHTML = '';
+            this.highScoreElement.style.display = 'none';
+            this.highScoreElement2.style.display = 'none';            
+            this.toggleDifficultySelector();
+            document.querySelectorAll('.difficultyBtn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.querySelector('.difficultyBtn[data-level="3"]').classList.add('selected');
+        }
 	
 }
