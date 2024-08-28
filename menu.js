@@ -29,7 +29,7 @@ export class Menu {
         });
         document.getElementById('backToMenu').addEventListener('click', () => {
             this.resetGame();
-            this.showMenu());
+            this.showMenu();
         });
         document.getElementById('showHighScore').addEventListener('click', () => {
             this.showHighScores();
