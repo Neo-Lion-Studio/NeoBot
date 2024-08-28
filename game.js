@@ -2,14 +2,14 @@ import { Ball } from './ball.js';
 import { Pipe } from './pipe.js';
 
 export class Game {
-    constructor(gameElement) {
+    constructor(gameElement, difficultyLevel) {
         this.gameElement = gameElement;
         this.gameSize = Math.min(window.innerWidth - 40, 600);
         this.ball = null;
         this.pipes = [];
         this.score = 0;
         this.gameover = false;
-        this.difficultyLevel = 3;
+        this.difficultyLevel = difficultyLevel;
         this.difficultySettings = {
             1: { pipeSpeed: 0.5, pipeCount: 2, gravity: 0.5 },
             2: { pipeSpeed: 0.75, pipeCount: 3, gravity: 0.75 },
@@ -17,6 +17,7 @@ export class Game {
             4: { pipeSpeed: 1.25, pipeCount: 5, gravity: 1.25 },
             5: { pipeSpeed: 1.5, pipeCount: 6, gravity: 1.5 }
         };
+        this.onGameOver = null;
         this.init();
     }
 
@@ -45,7 +46,12 @@ export class Game {
     }
 
     update() {
-        if (this.gameover) return;
+        if (this.gameover) {
+            if (this.onGameOver) {
+                this.onGameOver(this.score);
+            }
+            return;
+        }
 
         this.ball.update(this.difficultySettings[this.difficultyLevel].gravity, this.gameSize);
         this.updatePipes();
