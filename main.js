@@ -1,6 +1,8 @@
 import { Game } from './game.js';
+import { Menu } from './menu.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const gameElement = document.getElementById('game');
-    new Game(gameElement);
+    const gameContainer = document.getElementById('gameContainer');
+    const menu = new Menu(gameContainer);
+    menu.init();
 });
