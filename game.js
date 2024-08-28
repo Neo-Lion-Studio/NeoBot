@@ -12,10 +12,10 @@ export class Game {
         this.difficultyLevel = difficultyLevel;
         this.difficultySettings = {
             1: { pipeSpeed: 0.5, pipeCount: 2, gravity: 0.5 },
-            2: { pipeSpeed: 0.75, pipeCount: 3, gravity: 0.75 },
-            3: { pipeSpeed: 1, pipeCount: 4, gravity: 1 },
-            4: { pipeSpeed: 1.25, pipeCount: 5, gravity: 1.25 },
-            5: { pipeSpeed: 1.5, pipeCount: 6, gravity: 1.5 }
+            2: { pipeSpeed: 1, pipeCount: 3, gravity: 0.75 },
+            3: { pipeSpeed: 1.5, pipeCount: 4, gravity: 1 },
+            4: { pipeSpeed: 2, pipeCount: 5, gravity: 1.25 },
+            5: { pipeSpeed: 2.5, pipeCount: 6, gravity: 1.5 }
         };
         this.onGameOver = null;
         this.init();
