@@ -140,15 +140,16 @@
         </div>
     </div>
 
-    <script type="module" src="flappyBallGame.js"></script>
-    <script>
-        function startGame() {
-            const gameElement = document.getElementById('game');
-            const flappyBird = new FlappyBall(gameElement, difficultyLevel);
-        }
+    <script type="module">
+        import FlappyBird from './flappyBallGame.js';
 
         function setDifficulty() {
             difficultyLevel = parseInt(document.getElementById('difficulty').value);
+        }
+
+        function startGame() {
+            const gameElement = document.getElementById('game');
+            const flappyBird = new FlappyBird(gameElement, difficultyLevel);
         }
 
         function showScores() {
