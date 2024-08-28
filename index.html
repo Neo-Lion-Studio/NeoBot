@@ -2,36 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flappy Ball</title>
+    <title>疯狂的球球</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="gameContainer">
         <div id="menuScreen" class="screen">
-            <h1>Flappy Ball</h1>
+            <h1>疯狂的球球</h1>
             <button id="startGame">开始游戏</button>
             <button id="chooseDifficulty">选择难度</button>
             <button id="showHighScore">积分记录</button>
             <div id="difficultySelector" style="display: none;">
-                <button class="difficultyBtn" data-level="1">简单</button>
+                <button class="difficultyBtn selected" data-level="1">简单</button>
                 <button class="difficultyBtn" data-level="2">普通</button>
                 <button class="difficultyBtn" data-level="3">中等</button>
                 <button class="difficultyBtn" data-level="4">困难</button>
                 <button class="difficultyBtn" data-level="5">极难</button>
             </div>
-            <div id="highScore"></div>
+            <div id="highScore" style="display: none;"></div>
         </div>
         <div id="game" class="screen" style="display: none;">
-            <div id="ball" class="ball ball1"></div>
-            <div id="score">0</div>
+            <!-- 游戏元素将在这里动态创建 -->
         </div>
         <div id="gameOverScreen" class="screen" style="display: none;">
             <h2>游戏结束</h2>
             <p id="finalScore"></p>
+            <div id="gameOverHighScore" style="display: none;"></div>
             <button id="showHighScoreEnd">积分记录</button>
             <button id="backToMenu">回到菜单</button>
         </div>
     </div>
+    <script type="module" src="ball.js"></script>
+    <script type="module" src="pipe.js"></script>
+    <script type="module" src="game.js"></script>
+    <script type="module" src="menu.js"></script>
     <script type="module" src="main.js"></script>
 </body>
 </html>
