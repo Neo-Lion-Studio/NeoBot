@@ -57,6 +57,7 @@ export class Pipe {
         this.x -= speed;
         this.divUp.style.left = this.x + "px";
         this.divDown.style.left = this.x + "px";
+        console.log("Pipe position:", this.x);
     }
 
     reset(gameSize) {
@@ -65,8 +66,19 @@ export class Pipe {
     }
 
     checkCollision(ball) {
-        const clsUp = (ball.x + 30 > this.x) && (ball.x + 15 < this.x + 52) && (ball.y + 15 < this.upPipeH);
-        const clsDown = (ball.x + 30 > this.x) && (ball.x + 15 < this.x + 52) && (ball.y + 30 > this.downPipeY);
-        return clsUp || clsDown;
+        const ballX = ball.getX();
+        const ballY = ball.getY();
+        const ballRight = ballX + ball.width;
+        const ballBottom = ballY + ball.height;
+
+        const clsUp = (ballRight > this.x) && (ballX < this.x + this.width) && (ballY < this.upPipeH);
+        const clsDown = (ballRight > this.x) && (ballX < this.x + this.width) && (ballBottom > this.downPipeY);
+
+        if (clsUp || clsDown) {
+            console.log("Collision detected");
+            return true;
+        }
+
+        return false;
     }
 }
